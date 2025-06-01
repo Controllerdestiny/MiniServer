@@ -2,7 +2,7 @@
 using System.Text;
 using Newtonsoft.Json;
 
-namespace MarkdownImageAPI;
+namespace MiniServer;
 
 public class HttpRequestArgs(HttpListenerContext context)
 {

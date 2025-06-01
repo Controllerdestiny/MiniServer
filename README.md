@@ -1,26 +1,30 @@
-# MarkdownImageAPI
+# MiniServer
 
-一个将 Markdown 文本转为图片的程序
+一个将提供REST API服务器程序!
 
-## 注意事项
+## 已实现API
+- /markdown `将Markdown内容转为图片`
+- /commamd `执行系统命令`
 
-- 此程序基于 Chrome 内核渲染图片
-- 此程序依托于[oiapi.net](http://docs.oiapi.net)
-- 如果你有能力也可自己建站，其中 css 样式文件，使用的是 [github-markdown-css](https://github.com/sindresorhus/github-markdown-css)
+
+
 
 ## 启动参数
 
-- `-port` 设置端口
-- `-chrome` Chrome 路径
 
 ## 配置
 
 ```json
 {
-  "端口": 7776,
-  "日志路径": "Log",
-  "日志大小": 32,
-  "启用无头": false,
-  "内核启动参数": []
+    "Logging": {
+        "LogLevel": {
+            "Default": "Information",
+            "Microsoft.AspNetCore": "Warning"
+        }
+    },
+    "EnableHeadLess": true, //是否开启无头模式
+    "Server": {
+        "Port": 55119 //端口
+    }
 }
 ```

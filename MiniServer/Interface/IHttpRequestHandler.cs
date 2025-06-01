@@ -1,4 +1,4 @@
-﻿namespace MarkdownImageAPI.Interface;
+﻿namespace MiniServer.Interface;
 
 public interface IHttpRequestHandler
 {

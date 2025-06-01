@@ -1,11 +1,11 @@
 using System.Diagnostics;
 using Markdig;
-using MarkdownImageAPI.Handlers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MiniServer.Handlers;
 using PuppeteerSharp;
 using PuppeteerSharp.Media;
-namespace MarkdownImageAPI;
+namespace MiniServer;
 
 public class Utils
 {
@@ -41,7 +41,7 @@ public class Utils
         if (browser == null || !browser.IsConnected || browser.IsClosed || browser.Process.HasExited)
         {
             await new BrowserFetcher().DownloadAsync();
-            var config = MarkdownApp.IHost?.Services.GetRequiredService<IConfiguration>();
+            var config = MiniServer.IHost?.Services.GetRequiredService<IConfiguration>();
             var option = new LaunchOptions()
             {
                 Headless = config?.GetValue<bool>("EnableHeadLess") ?? true,

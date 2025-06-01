@@ -1,11 +1,11 @@
 ﻿using System.Net;
 using System.Reflection;
-using MarkdownImageAPI.Interface;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MiniServer.Interface;
 
-namespace MarkdownImageAPI.Network;
+namespace MiniServer.Network;
 
 public class HttpServer : IHostedService
 {

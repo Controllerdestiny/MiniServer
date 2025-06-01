@@ -1,10 +1,10 @@
-﻿using MarkdownImageAPI.Network;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MiniServer.Network;
 
-namespace MarkdownImageAPI;
+namespace MiniServer;
 
-public class MarkdownApp
+public class MiniServer
 {
     private static HostApplicationBuilder _hostApplicationBuilder = Host.CreateApplicationBuilder();
 

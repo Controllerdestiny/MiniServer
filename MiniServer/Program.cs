@@ -1,13 +1,13 @@
 using System.Reflection;
-using MarkdownImageAPI;
+using MiniServer;
 
 Utils.Kill();
 
-Console.Title = "MarkdownImageAPI";
+Console.Title = "MiniServer";
 if (!File.Exists("appsettings.json"))
 {
     var assembly = Assembly.GetExecutingAssembly();
-    using var stream = assembly.GetManifestResourceStream("MarkdownImageAPI.Resources.appsettings.json");
+    using var stream = assembly.GetManifestResourceStream("MiniServer.Resources.appsettings.json");
     if (stream == null)
     {
         Console.WriteLine("appsettings.json not found in resources.");
@@ -18,4 +18,4 @@ if (!File.Exists("appsettings.json"))
     fs.Close();
     stream?.Close();
 }
-MarkdownApp.Start();
+MiniServer.MiniServer.Start();

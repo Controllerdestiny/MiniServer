@@ -1,8 +1,8 @@
 ﻿using System.Net;
-using MarkdownImageAPI.Interface;
+using MiniServer.Interface;
 using Newtonsoft.Json;
 
-namespace MarkdownImageAPI.Handlers;
+namespace MiniServer.Handlers;
 
 public class MarkdownHandler : IHttpRequestHandler
 {
@@ -18,4 +18,22 @@ public class MarkdownHandler : IHttpRequestHandler
         var (buffer, _) = await Utils.Markdown(param);
         args.ReplyImage(buffer, HttpStatusCode.OK);
     }
+}
+
+public class MarkdownRequestArgs
+{
+    [JsonProperty("auto_width")]
+    public bool AutoWidth { get; init; } = true;
+
+    [JsonProperty("auto_height")]
+    public bool AutoHeight { get; init; } = true;
+
+    [JsonProperty("timeout")]
+    public int TimeOut { get; init; } = 5000;
+
+    [JsonProperty("enable_dark")]
+    public bool Dark { get; init; } = false;
+
+    [JsonProperty("content")]
+    public string MarkdownContent { get; init; } = string.Empty;
 }
