@@ -42,7 +42,8 @@ public class Utils
         {
             await new BrowserFetcher().DownloadAsync();
             var config = MiniServer.IHost?.Services.GetRequiredService<IConfiguration>();
-            var argsList = config?.GetValue<string[]>("Args") ?? [];
+            var argsList = config?.GetSection("Args").Get<string[]>() ?? [];
+            Console.WriteLine(argsList);
             var executablePath = config?.GetValue<string>("ExecutablePath");
             var option = new LaunchOptions()
             {
