@@ -42,10 +42,17 @@ public class Utils
         {
             await new BrowserFetcher().DownloadAsync();
             var config = MiniServer.IHost?.Services.GetRequiredService<IConfiguration>();
+            var argsList = config?.GetValue<string[]>("Args") ?? [];
+            var executablePath = config?.GetValue<string>("ExecutablePath");
             var option = new LaunchOptions()
             {
                 Headless = config?.GetValue<bool>("EnableHeadLess") ?? true,
+                Args = argsList,
             };
+            if (!string.IsNullOrEmpty(executablePath))
+            {
+                option.ExecutablePath = executablePath;
+            }
             browser = await Puppeteer.LaunchAsync(option);
         }
         if (Page == null || Page.IsClosed || Page.Browser.Process.HasExited)

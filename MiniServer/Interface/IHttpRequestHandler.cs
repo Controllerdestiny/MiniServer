@@ -1,4 +1,6 @@
-﻿namespace MiniServer.Interface;
+﻿using Microsoft.Extensions.Configuration;
+
+namespace MiniServer.Interface;
 
 public interface IHttpRequestHandler
 {
