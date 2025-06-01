@@ -13,7 +13,7 @@ jobs:
       matrix:
         runtimeIdentifier: [ win-x64, linux-x64]
 
-    name: 构建 MarkdownImageAPI
+    name: 构建 MiniServer
     steps:
       - uses: actions/checkout@v4
         with:
@@ -28,13 +28,13 @@ jobs:
           
       - name: 编译
         run: |
-           dotnet publish MarkdownImageAPI/MarkdownImageAPI.csproj --no-self-contained -p:PublishSingleFile=true -p:RuntimeIdentifier=${{ matrix.runtimeIdentifier }} --framework net8.0           
+           dotnet publish MiniServer/MiniServer.csproj --no-self-contained -p:PublishSingleFile=true -p:RuntimeIdentifier=${{ matrix.runtimeIdentifier }} --framework net8.0           
            
       - name: 上传临时文件
         uses: actions/upload-artifact@v4
         with:
-          name: MarkdownImageAPI_${{ matrix.runtimeIdentifier }}_8.0
-          path: MarkdownImageAPI/bin/Release/net8.0/${{ matrix.runtimeIdentifier }}/publish/
+          name: MiniServer_${{ matrix.runtimeIdentifier }}_8.0
+          path: MiniServer/bin/Release/net8.0/${{ matrix.runtimeIdentifier }}/publish/
           
   LatestRelease:
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
@@ -85,4 +85,4 @@ jobs:
       - uses: geekyeggo/delete-artifact@v5
         with:
           name: |
-            MarkdownImageAPI_*
+            MiniServer_*
