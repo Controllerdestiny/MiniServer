@@ -57,6 +57,15 @@ public class HttpServer : IHostedService
     {
         var path = httpListenerContext.Request.Url?.AbsolutePath;
         var method = httpListenerContext.Request.HttpMethod;
+        var AccessToken = httpListenerContext.Request.Headers["Authorization"] ?? httpListenerContext.Request.QueryString["access_token"];
+        var token = _configuration["Server:AccessToken"];
+        if (!string.IsNullOrEmpty(token) && !string.IsNullOrEmpty(AccessToken) && AccessToken != token)
+        {
+            _logger.LogWarning("[HttpReceive] 访问令牌错误: {Path} {Method}", path, method);
+            httpListenerContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            httpListenerContext.Response.Close();
+            return;
+        }
         var context = _httpRequestContexts
             .FirstOrDefault(x => x.Path == path && x.Method == method);
         if (context is null)
