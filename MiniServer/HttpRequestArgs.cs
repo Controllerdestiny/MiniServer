@@ -1,14 +1,17 @@
 ﻿using System.Net;
 using System.Text;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace MiniServer;
 
-public class HttpRequestArgs(HttpListenerContext context)
+public class HttpRequestArgs(HttpListenerContext context, ILogger logger)
 {
     public HttpListenerContext Context { get; } = context;
     public string Path => Context.Request.RawUrl ?? string.Empty;
     public string Method => Context.Request.HttpMethod;
+
+    private readonly ILogger _logger = logger;
 
     public void ReplyJson(object data, HttpStatusCode code)
     {
@@ -47,9 +50,18 @@ public class HttpRequestArgs(HttpListenerContext context)
 
     public void Reply(byte[] buffer, HttpStatusCode code, string contentType)
     {
-        Context.Response.StatusCode = (int)code;
-        Context.Response.ContentType = contentType;
-        Context.Response.OutputStream.Write(buffer, 0, buffer.Length);
-        Context.Response.Close();
+        try
+        {
+            Context.Response.StatusCode = (int)code;
+            Context.Response.ContentType = contentType;
+            Context.Response.OutputStream.Write(buffer, 0, buffer.Length);
+            Context.Response.Close();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Http Response Error: {ErrorMsg}", ex.Message);
+            return;
+        }
+        
     }
 }

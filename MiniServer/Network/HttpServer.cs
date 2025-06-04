@@ -75,7 +75,7 @@ public class HttpServer : IHostedService
             httpListenerContext.Response.Close();
             return;
         }
-        var args = new HttpRequestArgs(httpListenerContext);
+        var args = new HttpRequestArgs(httpListenerContext, _logger);
         try
         {
             _logger.LogInformation("[HttpReceive] 处理请求: {Path} {Method}", path, method);
